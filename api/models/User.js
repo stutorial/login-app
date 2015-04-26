@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  schema: true // only attributes in the model's attributes will be stored
+  schema: true, // only attributes in the model's attributes will be stored
   
   attributes: {
 
