@@ -20,6 +20,9 @@ module.exports = {
     }
     User.create(newUser, function (err, user) {
       if (err) return res.redirect('/user/new');
+      if (!user) return res.negotiate(err);
+      req.session.authenticated = true;
+      req.session.user = user;
       return res.redirect('/user/show/' + user.id);
     });
   },
@@ -27,6 +30,7 @@ module.exports = {
   show: function (req, res) {
     User.findOne(req.params["id"], function (err, user) {
       if (err) res.negotiate(err);
+      if (!user) res.negotiate(err);
       return res.view({user: user});
     });
   },
@@ -41,20 +45,21 @@ module.exports = {
   edit: function (req, res) {
     User.findOne(req.params["id"], function (err, user) {
       if (err) res.negotiate(err);
+      if (!user) res.negotiate(err);
       return res.view({user: user});
     });
   },
 
   update: function (req, res) {
     var params = req.allParams();
-    var userID = req.params["id"];
+    var userId = req.params['id'];
     var updUser = {
       username: params['username'],
       email: params['email']
     }
-    User.update(req.params["id"], updUser, function (err) {
-      if (err) return res.redirect('/user/edit/' + userID);
-      return res.redirect('/user/show/' + userID);
+    User.update(userId, updUser, function (err) {
+      if (err) return res.redirect('/user/edit/' + userId);
+      return res.redirect('/user/show/' + userId);
     });
   },
 
