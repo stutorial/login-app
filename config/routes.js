@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    view: 'static/home'
   },
 
   /***************************************************************************
@@ -46,6 +46,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  // User routes
   'get /user/show/:id': 'UserController.show',
   'get /users': 'UserController.index',
   'get /user/new': 'UserController.new',
@@ -53,5 +54,9 @@ module.exports.routes = {
   'get /user/edit/:id': 'UserController.edit',
   'post /user/update/:id': 'UserController.update',
   'post /user/destroy/:id': 'UserController.destroy',
+
+  // Session routes
+  'post /session/create': 'SessionController.create',
+  'get /session/destroy': 'SessionController.destroy',
 
 };
