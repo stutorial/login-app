@@ -34,9 +34,22 @@
   </head>
 
   <body>
+
+    <header>
+      <% if (session.authenticated) { %>
+        <p>Estas logueado como <%= session.user.username %></p>
+        <a href="/session/destroy" title="Log out">Log out</a>
+      <% } else { %>
+        <form action="/session/create" method="post" accept-charset="utf-8">
+          <input type="text" name="username" placeholder="your username">
+          <input type="password" name="password" placeholder="your password">
+          <input type="submit" name="submit" value="Log in">
+        </form>
+        <a href="/user/new" title="Create user">Create user</a>
+      <% } %>
+    </header>
+
     <%- body %>
-
-
 
     <!--
         Client-side Templates
